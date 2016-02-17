@@ -1,6 +1,6 @@
 library(reshape2)
 
-file.dir <- "C:/Users/Neil/Documents/Football Stats/football-data.co.uk/Downloaded/"
+file.dir <- "C:/path to downloaded files/"
 
 filelist <- list.files(file.dir)
 
