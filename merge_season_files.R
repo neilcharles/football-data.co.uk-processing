@@ -11,8 +11,6 @@ file.dir <- "C:/path to downloaded files/"
 #   2. merged-transformed.csv  -  transforms the merged data so that columns are identical for home and away teams
 #------------------------------------------------------------------------------------------------------------
 
-file.dir <- "C:/Users/Neil/Documents/Football Stats/football-data.co.uk/Downloaded/"
-
 #----------------------------------------------------------------------------------------
 #   Load and merge season files
 #----------------------------------------------------------------------------------------
@@ -46,12 +44,12 @@ write.csv(merged.wide,paste(file.dir,"merged-seasons.csv",sep=""), row.names = F
 #   Split home and away to create team summary data
 #----------------------------------------------------------------------------------------
 
-homedata <- merged.wide[,c("Date","HomeTeam","AwayTeam","FTR","HTR",
+homedata <- merged.wide[,c("Div","Date","HomeTeam","AwayTeam","FTR","HTR",
                                    "FTHG","HTHG","HS","HST","HF","HC","HY","HR",
                                    "FTAG","HTAG","AS","AST","AF","AC","AY","AR"
 )]
 
-awaydata <- merged.wide[,c("Date","AwayTeam","HomeTeam","FTR","HTR",
+awaydata <- merged.wide[,c("Div","Date","AwayTeam","HomeTeam","FTR","HTR",
                                    "FTAG","HTAG","AS","AST","AF","AC","AY","AR",
                                    "FTHG","HTHG","HS","HST","HF","HC","HY","HR"
 )]
@@ -63,7 +61,8 @@ awaydata$Home_Away <- 'A'
 #   Rename home and away variables to generic names ("Home Shots" to "Shots" etc.)
 #----------------------------------------------------------------------------------------
 
-homedata <- rename(homedata,  Team = HomeTeam,
+homedata <- rename(homedata,
+                   Team = HomeTeam,
                    Opposition = AwayTeam,
                    Full_Time_Result=FTR,
                    Half_Time_Result=HTR,
@@ -85,7 +84,8 @@ homedata <- rename(homedata,  Team = HomeTeam,
                    Red_Cards_Opposition=AR
 )
 
-awaydata <- rename(awaydata,  Team = AwayTeam,
+awaydata <- rename(awaydata,
+                   Team = AwayTeam,
                    Opposition = HomeTeam,
                    Full_Time_Result=FTR,
                    Half_Time_Result=HTR,
