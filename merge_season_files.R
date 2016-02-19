@@ -111,4 +111,4 @@ awaydata <- rename(awaydata,
 merged.home_away <- rbind(homedata, awaydata)
 
 #Save transformed data
-write.csv(merged.home_away,"merged-transformed.csv")
+write.csv(merged.home_away,paste(file.dir,"merged-transformed.csv",sep=""), row.names = FALSE)
