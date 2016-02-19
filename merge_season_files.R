@@ -1,9 +1,8 @@
 library(reshape2)
 library(dplyr)
+library(lubridate)
 
 file.dir <- "C:/path to downloaded files/"
-
-file.dir = "C:/Users/Neil/Documents/Football Stats/football-data.co.uk/Downloaded/"
 
 #------------------------------------------------------------------------------------------------------------
 #   Dump season files downloaded from football-data.co.uk into one directory and set the path above   
@@ -41,6 +40,9 @@ for (i in 1:length(filelist)){
 
 merged.wide <- dcast(merged.df, Div + Date + HomeTeam + AwayTeam ~ variable)
 
+#Create a season variable
+merged.wide$season <- ifelse(month(merged.wide$Date) < 8,paste(year(merged.wide$Date)-1,year(merged.wide$Date),sep="/"),paste(year(merged.wide$Date),year(merged.wide$Date)+1,sep="/"))
+
 #Save a merged seasons file
 write.csv(merged.wide,paste(file.dir,"merged-seasons.csv",sep=""), row.names = FALSE)
 
@@ -48,12 +50,12 @@ write.csv(merged.wide,paste(file.dir,"merged-seasons.csv",sep=""), row.names = F
 #   Split home and away to create team summary data
 #----------------------------------------------------------------------------------------
 
-homedata <- merged.wide[,c("Div","Date","HomeTeam","AwayTeam","FTR","HTR",
+homedata <- merged.wide[,c("Div","Date","season","HomeTeam","AwayTeam","FTR","HTR",
                                    "FTHG","HTHG","HS","HST","HF","HC","HY","HR",
                                    "FTAG","HTAG","AS","AST","AF","AC","AY","AR"
 )]
 
-awaydata <- merged.wide[,c("Div","Date","AwayTeam","HomeTeam","FTR","HTR",
+awaydata <- merged.wide[,c("Div","Date","season","AwayTeam","HomeTeam","FTR","HTR",
                                    "FTAG","HTAG","AS","AST","AF","AC","AY","AR",
                                    "FTHG","HTHG","HS","HST","HF","HC","HY","HR"
 )]
