@@ -3,6 +3,8 @@ library(dplyr)
 
 file.dir <- "C:/path to downloaded files/"
 
+file.dir = "C:/Users/Neil/Documents/Football Stats/football-data.co.uk/Downloaded/"
+
 #------------------------------------------------------------------------------------------------------------
 #   Dump season files downloaded from football-data.co.uk into one directory and set the path above   
 #
@@ -19,7 +21,9 @@ filelist <- list.files(file.dir)
 
 for (i in 1:length(filelist)){
   
-    if (grepl("\\d\\d\\d\\d\\D\\d.csv",filelist[i])) {
+    if (grepl("^.*.csv",filelist[i])
+        & filelist[i]!="merged-seasons.csv"
+        & filelist[i]!="merged-transformed.csv") {
       
       imported.original <- read.csv(paste(file.dir,filelist[i],sep=""), stringsAsFactors = FALSE)
   
