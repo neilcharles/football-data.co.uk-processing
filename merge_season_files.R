@@ -116,5 +116,10 @@ awaydata <- rename(awaydata,
 #Merge home and away data
 merged.home_away <- rbind(homedata, awaydata)
 
+#Create a points variable
+merged.home_away$points <- 0
+merged.home_away$points <- ifelse(merged.home_away$Home_Away==merged.home_away$Full_Time_Result,3,merged.home_away$points)
+merged.home_away$points <- ifelse(merged.home_away$Full_Time_Result=="D",1,merged.home_away$points)
+
 #Save transformed data
 write.csv(merged.home_away,paste(file.dir,"merged-transformed.csv",sep=""), row.names = FALSE)
